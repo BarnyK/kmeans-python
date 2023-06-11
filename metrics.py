@@ -20,7 +20,6 @@ def silhouette(data: np.ndarray, results: np.ndarray) -> float:
             a[i] = 0
         else:
             a[i] = np.mean(distances[i, selector])
-    
 
     # b contains the least average distance of point i to all points
     # of a cluster that does not contain i
@@ -96,8 +95,8 @@ if __name__ == "__main__":
     x = np.array([1, 3, 2, 2, 2, 2, 1, 1, 3, 3])
     print(np.array([x, y]).T)
 
-    print(purity(x, y)) # 0.7   Matches slides
-    print(rand(x, y))   # 0.51  Matches slides
+    print(purity(x, y))  # 0.7   Matches slides
+    print(rand(x, y))  # 0.51  Matches slides
 
     x = np.array([1, 1, 2, 1, 2, 2, 3, 3, 3])
     y = np.array([1, 1, 1, 2, 2, 2, 3, 3, 3])
@@ -106,4 +105,3 @@ if __name__ == "__main__":
         dtype=float,
     )
     print(silhouette(data, y))  # 0.7421...
-

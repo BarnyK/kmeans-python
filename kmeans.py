@@ -3,8 +3,8 @@ import argparse
 from data_handling import load_dataset, save_clustering
 from initializations import initialize_centroids
 from metrics import calculate_metrics
-from helpers import center_equals, calculate_distances, assign_labels
-
+from helpers import center_equals, assign_labels
+from typing import Tuple, Dict
 
 def cluster(data: np.ndarray, centroids: np.ndarray, max_iters: int) -> np.ndarray:
     """Performs the kmeans clustering iteration"""
@@ -45,7 +45,7 @@ def kmeans(
     max_iters: int = 100,
     output_file: str = "",
     verbose: bool = True
-):
+) -> Tuple[np.ndarray,np.ndarray,np.ndarray,Dict[str,float],int]:
     """
     Main function performing the kmeans clustering.
     Loads data, initializes centroids, runs clustering iterations, calculates metrics.
