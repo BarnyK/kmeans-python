@@ -12,7 +12,7 @@ def load_arff(filename: str, labels_flag: bool) -> Tuple[np.ndarray, np.ndarray]
     dataset = arff.load(open(filename, "r"))
     if labels_flag:
         data = np.array([x[:-1] for x in dataset["data"]], dtype=float)
-        labels = np.array([x[-1] for x in dataset["data"]])
+        labels = np.array([x[-1] for x in dataset["data"]], dtype=int)
     else:
         data = np.array([x for x in dataset["data"]], dtype=float)
         labels = None
@@ -28,7 +28,7 @@ def load_csv(filename: str, labels_flag: bool) -> Tuple[np.ndarray, np.ndarray]:
         array = [x for x in reader]
     if labels_flag:
         data = np.array([x[:-1] for x in array], dtype=float)
-        labels = np.array([x[-1] for x in array])
+        labels = np.array([x[-1] for x in array], dtype=int)
     else:
         data = np.array(array, dtype=float)
         labels = None

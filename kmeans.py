@@ -45,7 +45,7 @@ def kmeans(
     max_iters: int = 100,
     output_file: str = "",
     verbose: bool = True
-) -> Tuple[np.ndarray,np.ndarray,np.ndarray,Dict[str,float],int]:
+) -> Tuple[np.ndarray,np.ndarray,np.ndarray,Dict[str,float],int,np.ndarray]:
     """
     Main function performing the kmeans clustering.
     Loads data, initializes centroids, runs clustering iterations, calculates metrics.
@@ -74,7 +74,7 @@ def kmeans(
     if output_file:
         save_clustering(output_file, result)
 
-    return data, final_centroids, result, metrics, iterations
+    return data, final_centroids, result, metrics, iterations, labels
 
 
 if __name__ == "__main__":
