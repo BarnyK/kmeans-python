@@ -24,9 +24,17 @@ def silhouette(data: np.ndarray, results: np.ndarray) -> float:
     # b contains the least average distance of point i to all points
     # of a cluster that does not contain i
     b = np.zeros(no_samples)
+    b[:] = np.inf
     for i in range(no_samples):
         cid = results[i]
-        b[i] = np.min(distances[i, results != cid])
+        
+        # For each other cluster
+        for j in np.unique(results):
+            if j == cid:
+                continue
+            dists_to_j = distances[i, results == j]
+            b[i] = np.min([np.mean(dists_to_j),b[i]])
+
 
     silhouette_coeffs = (b - a) / np.maximum(a, b)
     return np.mean(silhouette_coeffs)
@@ -98,10 +106,12 @@ if __name__ == "__main__":
     print(purity(x, y))  # 0.7   Matches slides
     print(rand(x, y))  # 0.51  Matches slides
 
-    x = np.array([1, 1, 2, 1, 2, 2, 3, 3, 3])
-    y = np.array([1, 1, 1, 2, 2, 2, 3, 3, 3])
+    y = np.array([1, 1, 2, 1, 2, 2, 3, 3, 3])
+    x = np.array([1, 1, 1, 2, 2, 2, 3, 3, 3])
     data = np.array(
         [[0, 0], [0, 1], [1, 0], [5, 5], [5, 6], [6, 5], [0, 5], [0, 6], [1, 5]],
         dtype=float,
     )
-    print(silhouette(data, y))  # 0.7421...
+    print(silhouette(data, x))  # 0.7421...
+    from sklearn import metrics
+    print(metrics.silhouette_score(data,x))

@@ -5,7 +5,7 @@ from initializations import initialize_centroids
 from metrics import calculate_metrics
 from helpers import center_equals, assign_labels
 from typing import Tuple, Dict
-
+import time
 def cluster(data: np.ndarray, centroids: np.ndarray, max_iters: int) -> np.ndarray:
     """Performs the kmeans clustering iteration"""
     current_centroids = centroids.copy()
@@ -55,14 +55,21 @@ def kmeans(
     if k > data.shape[0]:
         raise ValueError("parameter k can't be bigger than sample size")
 
-
+    st = time.time()
     centroids = initialize_centroids(data, k, init_type)
+    et = time.time()
+    init_time = et-st
 
+    st = time.time()
     final_centroids, iterations = cluster(data, centroids, max_iters)
+    et = time.time()
+    clustering_time = et-st
 
     result = assign_labels(data, final_centroids)
 
     metrics = calculate_metrics(data, result, labels)
+    metrics['init time'] = init_time
+    metrics['clustering time'] = clustering_time
 
     if verbose:
         if iter == max_iters:
