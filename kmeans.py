@@ -6,6 +6,8 @@ from metrics import calculate_metrics
 from helpers import center_equals, assign_labels
 from typing import Tuple, Dict
 import time
+
+
 def cluster(data: np.ndarray, centroids: np.ndarray, max_iters: int) -> np.ndarray:
     """Performs the kmeans clustering iteration"""
     current_centroids = centroids.copy()
@@ -44,8 +46,8 @@ def kmeans(
     init_type: str,
     max_iters: int = 100,
     output_file: str = "",
-    verbose: bool = True
-) -> Tuple[np.ndarray,np.ndarray,np.ndarray,Dict[str,float],int,np.ndarray]:
+    verbose: bool = True,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, Dict[str, float], int, np.ndarray]:
     """
     Main function performing the kmeans clustering.
     Loads data, initializes centroids, runs clustering iterations, calculates metrics.
@@ -58,18 +60,18 @@ def kmeans(
     st = time.time()
     centroids = initialize_centroids(data, k, init_type)
     et = time.time()
-    init_time = et-st
+    init_time = et - st
 
     st = time.time()
     final_centroids, iterations = cluster(data, centroids, max_iters)
     et = time.time()
-    clustering_time = et-st
+    clustering_time = et - st
 
     result = assign_labels(data, final_centroids)
 
     metrics = calculate_metrics(data, result, labels)
-    metrics['init time'] = init_time
-    metrics['clustering time'] = clustering_time
+    metrics["init time"] = init_time
+    metrics["clustering time"] = clustering_time
 
     if verbose:
         if iter == max_iters:
@@ -85,14 +87,6 @@ def kmeans(
 
 
 if __name__ == "__main__":
-    # filename, labels_flag, k | auto-k
-    kmeans("sample.csv", True, 3, "plusplus", 100)
-    #kmeans("datasets/artificial/spiral.arff", True, 3, "plusplus", 100)
-    #kmeans("datasets/artificial/spiral.arff", True, 3, "random", 100)
-
-
-
-if __name__ == "__main__2":
     parser = argparse.ArgumentParser(description="K means clustering")
 
     # Add arguments

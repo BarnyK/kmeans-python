@@ -76,7 +76,7 @@ def save_csv(filename: str, clustering: np.ndarray):
 
 def save_clustering(filename: str, clustering: np.ndarray):
     """
-        Saves clustering to a file
+    Saves clustering to a file
     """
     ext = path.splitext(filename)[-1]
     if ext == ".arff":

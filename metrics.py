@@ -27,14 +27,13 @@ def silhouette(data: np.ndarray, results: np.ndarray) -> float:
     b[:] = np.inf
     for i in range(no_samples):
         cid = results[i]
-        
+
         # For each other cluster
         for j in np.unique(results):
             if j == cid:
                 continue
             dists_to_j = distances[i, results == j]
-            b[i] = np.min([np.mean(dists_to_j),b[i]])
-
+            b[i] = np.min([np.mean(dists_to_j), b[i]])
 
     silhouette_coeffs = (b - a) / np.maximum(a, b)
     return np.mean(silhouette_coeffs)
@@ -114,4 +113,5 @@ if __name__ == "__main__":
     )
     print(silhouette(data, x))  # 0.7421...
     from sklearn import metrics
-    print(metrics.silhouette_score(data,x))
+
+    print(metrics.silhouette_score(data, x))

@@ -29,7 +29,7 @@ def plusplus_initialization(data: np.ndarray, k: int) -> np.ndarray:
 
 def initialize_centroids(data: np.ndarray, k: int, init_type: str) -> np.ndarray:
     """
-        Initialize centroids
+    Initialize centroids
     """
     if init_type == "random":
         return random_initialization(data, k)
